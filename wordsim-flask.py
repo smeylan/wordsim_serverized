@@ -28,7 +28,7 @@ lexiconch['gb12_unigram_surprisal'] = -1 * np.log2(lexiconch['lic_frequency'] / 
 #lexiconch = lexiconch.loc[(lexiconch['childes_parentUnigramSurprisal'] < 20) | (lexiconch['childes_childUnigramSurprisal'] < 20) | (lexiconch['gb12_unigram_surprisal'] < 25 )]
 lexiconch['adult_surprisal'] = lexiconch['childes_parentUnigramSurprisal']
 lexiconch['child_surprisal'] = lexiconch['childes_childUnigramSurprisal']
-
+lexiconch = lexiconch.fillna(-1)
 
 
 # Lexiconch can also be addressed as a database
@@ -88,7 +88,7 @@ def getMetadataForWord(word):
 def getNclosestNodes(): #word, nsim, adult_surprisal_filter,  child_surprisal_filter
     json = request.get_json()
     
-    for key, value in parameters['getNclosestNodes'].iteritems():
+    for key, value in parameters['getNclosestNodes'].items():
         if not key in json:       
             return(jsonify({'error':'/api/getNclosestNodes requires a json with a `'+key+'` key '+value}))
 
